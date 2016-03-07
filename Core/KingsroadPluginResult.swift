@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum KingsroadCommandStatus: Int {
+public enum KingsroadCommandStatus: Int {
     case NoResult = 0
     case OK
     case ClassNotFoundException
@@ -20,7 +20,7 @@ enum KingsroadCommandStatus: Int {
     case Error
 }
 
-class KingsroadPluginResult: NSObject {
+public class KingsroadPluginResult: NSObject {
     private(set) var status: KingsroadCommandStatus
     var message: AnyObject?
     let keepCallback: Bool

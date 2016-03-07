@@ -11,10 +11,10 @@ import WebKit
 
 
 
-class CordovaScriptMessageHandler: NSObject, WKScriptMessageHandler {
-    weak var commandDelgete: KingsroadCommandDelegate? = nil
+public class CordovaScriptMessageHandler: NSObject, WKScriptMessageHandler {
+    public weak var commandDelgete: KingsroadCommandDelegate? = nil
 
-    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+    public func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
 
         guard message.name == "cordova" else {
             return

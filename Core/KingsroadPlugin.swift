@@ -8,15 +8,15 @@
 
 import UIKit
 
-class KingsroadPlugin: NSObject {
+public class KingsroadPlugin: NSObject {
 
     weak var commandDelgete: KingsroadCommandDelegate? = nil
 
-    override required init() {
+    override required public init() {
         super.init()
     }
 
-    func judgeCommandMethodArgumentCount(command: KingsroadCommand, rightCount count: UInt) -> KingsroadPluginResult? {
+    public func judgeCommandMethodArgumentCount(command: KingsroadCommand, rightCount count: UInt) -> KingsroadPluginResult? {
         let result: KingsroadPluginResult?
         if command.methodArguments.count != Int(count) {
             result = KingsroadPluginResult.errorWithMessage("argument count is wrong.")

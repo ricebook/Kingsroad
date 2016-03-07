@@ -8,8 +8,8 @@
 
 import UIKit
 
-class KingsroadPluginManager {
-    static let sharedManager = KingsroadPluginManager()
+public class KingsroadPluginManager {
+    public static let sharedManager = KingsroadPluginManager()
 
     private init() {
 
@@ -21,18 +21,18 @@ class KingsroadPluginManager {
      - parameter name:       Name of plugin that is used in js
      - parameter pluginType: The Class of plugin
      */
-    func registerPluginTypeWithName(name: String, pluginType: KingsroadPlugin.Type) {
+    public func registerPluginTypeWithName(name: String, pluginType: KingsroadPlugin.Type) {
         _pluginTypeMap[name] = pluginType
     }
 
 
-    func registerPlugins(plugins: [String: KingsroadPlugin.Type]) {
+    public func registerPlugins(plugins: [String: KingsroadPlugin.Type]) {
         for (key, value) in plugins {
             _pluginTypeMap[key] = value
         }
     }
 
-    subscript(pluginName: String) -> KingsroadPlugin.Type? {
+    public subscript(pluginName: String) -> KingsroadPlugin.Type? {
         return _pluginTypeMap[pluginName]
     }
 

@@ -8,18 +8,18 @@
 
 import UIKit
 
-@objc protocol KingsroadCommandDelegate {
+@objc public protocol KingsroadCommandDelegate {
     func sendPluginResult(result: KingsroadPluginResult, callbackID: String)
 }
 
-class KingsroadCommand: NSObject {
+public class KingsroadCommand: NSObject {
 
     let callbackID: String
     let pluginName: String
     let pluginMethodName: String
     let methodArguments: [AnyObject]
 
-    init(callbackID: String,
+    public init(callbackID: String,
         pluginName: String,
         pluginMethodName: String,
         methodArguments: [AnyObject])

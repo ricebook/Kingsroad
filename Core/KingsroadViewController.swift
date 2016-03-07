@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class KingsroadViewController: UIViewController {
+public class KingsroadViewController: UIViewController {
     private(set) var webView: WKWebView!
 
     var jsScriptRunAfterWebViewInit: String?
@@ -32,7 +32,7 @@ class KingsroadViewController: UIViewController {
 
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
@@ -49,7 +49,7 @@ class KingsroadViewController: UIViewController {
 extension KingsroadViewController {
     // MARK: - Life Cycle
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
@@ -66,7 +66,7 @@ extension KingsroadViewController {
         }
     }
     
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
@@ -75,7 +75,7 @@ extension KingsroadViewController {
 // MARK: - Extension: Delegates
 // MARK: KingsroadCommandDelegate
 extension KingsroadViewController: KingsroadCommandDelegate {
-    func sendPluginResult(result: KingsroadPluginResult, callbackID: String) {
+    public func sendPluginResult(result: KingsroadPluginResult, callbackID: String) {
 
         let resultJS = result.constructResultJSWithCallbackID(callbackID)
         webView.evaluateJavaScript(resultJS) { (obj, error) -> Void in
@@ -91,12 +91,12 @@ extension KingsroadViewController: KingsroadCommandDelegate {
 
 // MARK: WKNavigationDelegate
 extension KingsroadViewController: WKNavigationDelegate {
-    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+    public func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
 //        print(navigationAction)
         decisionHandler(.Allow)
     }
 
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    public func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
         print(navigation)
     }
 }
@@ -104,7 +104,7 @@ extension KingsroadViewController: WKNavigationDelegate {
 // MARK: WKUIDelegate
 extension KingsroadViewController: WKUIDelegate {
     // HTML页面Alert出内容
-    func webView(webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: () -> Void) {
+    public func webView(webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: () -> Void) {
         let ac = UIAlertController(title: "提示", message: message, preferredStyle: .Alert)
         ac.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: { (_) -> Void in
             completionHandler()
@@ -114,7 +114,7 @@ extension KingsroadViewController: WKUIDelegate {
     }
 
     // HTML页面弹出Confirm时调用此方法
-    func webView(webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: (Bool) -> Void) {
+    public func webView(webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: (Bool) -> Void) {
         let ac = UIAlertController(title: "提示", message: message, preferredStyle: .Alert)
         ac.addAction(UIAlertAction(title: "OK", style: .Default, handler:
             { (_) -> Void in
