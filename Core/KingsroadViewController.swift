@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 public class KingsroadViewController: UIViewController {
-    private(set) var webView: WKWebView!
+    public private(set) var webView: WKWebView!
 
     public var jsScriptRunAfterWebViewInit: String?
 
