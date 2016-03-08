@@ -25,15 +25,15 @@ public class KingsroadPluginResult: NSObject {
     var message: AnyObject?
     let keepCallback: Bool
 
-    convenience init(status: KingsroadCommandStatus) {
+    convenience public init(status: KingsroadCommandStatus) {
         self.init(status: status, message: nil, keepCallback: false)
     }
 
-    convenience init(status: KingsroadCommandStatus, message: AnyObject) {
+    convenience public init(status: KingsroadCommandStatus, message: AnyObject) {
         self.init(status: status, message: message, keepCallback: false)
     }
 
-    init(status: KingsroadCommandStatus, message: AnyObject?, keepCallback: Bool) {
+    public init(status: KingsroadCommandStatus, message: AnyObject?, keepCallback: Bool) {
         self.status = status
         self.message = message
         self.keepCallback = keepCallback
@@ -41,11 +41,11 @@ public class KingsroadPluginResult: NSObject {
         super.init()
     }
 
-    class func errorWithMessage(msg: String) -> KingsroadPluginResult {
+    public class func errorWithMessage(msg: String) -> KingsroadPluginResult {
         return KingsroadPluginResult(status: .Error, message: msg)
     }
 
-    class func dataFormatError() -> KingsroadPluginResult {
+    public class func dataFormatError() -> KingsroadPluginResult {
         return errorWithMessage("数据格式有误")
     }
 

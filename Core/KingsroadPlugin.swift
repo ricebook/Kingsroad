@@ -10,7 +10,7 @@ import UIKit
 
 public class KingsroadPlugin: NSObject {
 
-    weak var commandDelgete: KingsroadCommandDelegate? = nil
+    weak public var commandDelgete: KingsroadCommandDelegate? = nil
 
     override required public init() {
         super.init()

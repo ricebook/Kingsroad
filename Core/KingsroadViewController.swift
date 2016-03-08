@@ -12,7 +12,7 @@ import WebKit
 public class KingsroadViewController: UIViewController {
     private(set) var webView: WKWebView!
 
-    var jsScriptRunAfterWebViewInit: String?
+    public var jsScriptRunAfterWebViewInit: String?
 
 
     // MAKR: - init

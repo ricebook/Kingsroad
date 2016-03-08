@@ -14,10 +14,10 @@ import UIKit
 
 public class KingsroadCommand: NSObject {
 
-    let callbackID: String
-    let pluginName: String
-    let pluginMethodName: String
-    let methodArguments: [AnyObject]
+    public let callbackID: String
+    public let pluginName: String
+    public let pluginMethodName: String
+    public let methodArguments: [AnyObject]
 
     public init(callbackID: String,
         pluginName: String,
