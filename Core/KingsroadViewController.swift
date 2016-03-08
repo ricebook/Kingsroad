@@ -16,7 +16,7 @@ public class KingsroadViewController: UIViewController {
 
 
     // MAKR: - init
-    init?(workFolderFileURL: NSURL, indexRelativePath: String) {
+    public init?(workFolderFileURL: NSURL, indexRelativePath: String) {
         super.init(nibName: nil, bundle: nil)
 
         var isDirectory: ObjCBool = ObjCBool(false)
