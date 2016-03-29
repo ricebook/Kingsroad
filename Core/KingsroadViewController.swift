@@ -16,19 +16,22 @@ public class KingsroadViewController: UIViewController {
 
 
     // MAKR: - init
-    public init?(workFolderFileURL: NSURL, indexRelativePath: String) {
+    public init?(baseURL: NSURL, indexPath: String) {
         super.init(nibName: nil, bundle: nil)
 
-        var isDirectory: ObjCBool = ObjCBool(false)
-        let isExist = NSFileManager.defaultManager().fileExistsAtPath(workFolderFileURL.path ?? "", isDirectory: &isDirectory)
-
-        if !isExist || !isDirectory.boolValue {
-            print("\(workFolderFileURL.path) does not exist" )
-            return nil
+        if baseURL.fileURL {
+            // 如果是本地文件，则判断对应文件夹是否存在
+            var isDirectory: ObjCBool = ObjCBool(false)
+            let fileFolderPath = baseURL.path ?? ""
+            let isExist = NSFileManager.defaultManager().fileExistsAtPath(fileFolderPath, isDirectory: &isDirectory)
+            if !isExist || !isDirectory.boolValue {
+                print("\(fileFolderPath) does not exist" )
+                return nil
+            }
         }
 
-        _workFolderURL = workFolderFileURL
-        _indexPath = indexRelativePath
+        _baseURL = baseURL
+        _indexPath = indexPath
 
     }
 
@@ -38,9 +41,7 @@ public class KingsroadViewController: UIViewController {
 
 
     // MARK: - Private properties
-    private var _loadFileURL: NSURL?
-
-    private var _workFolderURL: NSURL?
+    private var _baseURL: NSURL = NSURL(fileURLWithPath: "/")
     private var _indexPath: String = "index.html"
 
 }
@@ -56,16 +57,16 @@ extension KingsroadViewController {
         
         p_constructSubviews()
 
-        if let workFolder = _workFolderURL {
-            if #available(iOS 9.0, *) {
-                webView.loadFileURL(workFolder.URLByAppendingPathComponent(_indexPath), allowingReadAccessToURL: workFolder)
-            } else {
-                let url = workFolder.URLByAppendingPathComponent(_indexPath)
-                webView.loadRequest(NSURLRequest(URL: url))
+        let wholeURL = _baseURL.URLByAppendingPathComponent(_indexPath)
+        if #available(iOS 9.0, *) {
+            if _baseURL.fileURL {
+                webView.loadFileURL(wholeURL, allowingReadAccessToURL: _baseURL)
+                return
             }
         }
+        webView.loadRequest(NSURLRequest(URL: wholeURL))
     }
-    
+
     override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -80,7 +81,7 @@ extension KingsroadViewController: KingsroadCommandDelegate {
         let resultJS = result.constructResultJSWithCallbackID(callbackID)
         webView.evaluateJavaScript(resultJS) { (obj, error) -> Void in
             if error == nil {
-                print("Callback JS run successfully. Result : \(obj)")
+//                print("Callback JS run successfully. Result : \(obj)")
             } else {
                 print("Callback JS run error. \(error)")
             }
