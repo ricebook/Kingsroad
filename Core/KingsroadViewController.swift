@@ -57,7 +57,9 @@ extension KingsroadViewController {
         
         p_constructSubviews()
 
-        let wholeURL = _baseURL.URLByAppendingPathComponent(_indexPath)
+        let wholeURLString = _baseURL.absoluteString + "/" + _indexPath
+        guard let wholeURL = NSURL(string: wholeURLString) else { return }
+
         if #available(iOS 9.0, *) {
             if _baseURL.fileURL {
                 webView.loadFileURL(wholeURL, allowingReadAccessToURL: _baseURL)
