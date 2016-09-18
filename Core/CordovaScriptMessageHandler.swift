@@ -14,22 +14,22 @@ import WebKit
 public class CordovaScriptMessageHandler: NSObject, WKScriptMessageHandler {
     public weak var commandDelgete: KingsroadCommandDelegate? = nil
 
-    public func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
 
         guard message.name == "cordova" else {
             return
         }
 
         guard let msgBody = message.body as? [AnyObject]
-        where msgBody.count >= 4
+        , msgBody.count >= 4
         else {
             return
         }
 
         guard let callbackID = msgBody[0] as? String,
-        pluginName = msgBody[1] as? String,
-        pluginMethodName = msgBody[2] as? String,
-        methodArguments = msgBody[3] as? [AnyObject]
+        let pluginName = msgBody[1] as? String,
+        let pluginMethodName = msgBody[2] as? String,
+        let methodArguments = msgBody[3] as? [AnyObject]
         else {
             return
         }
@@ -51,8 +51,8 @@ public class CordovaScriptMessageHandler: NSObject, WKScriptMessageHandler {
         }
 
         let methodSelector = Selector(pluginMethodName + ":")
-        if plugin.respondsToSelector(methodSelector) {
-            plugin.performSelector(methodSelector, withObject: command)
+        if plugin.responds(to: methodSelector) {
+            plugin.perform(methodSelector, with: command)
         }
 
     }

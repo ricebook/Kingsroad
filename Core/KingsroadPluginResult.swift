@@ -9,15 +9,15 @@
 import UIKit
 
 public enum KingsroadCommandStatus: Int {
-    case NoResult = 0
-    case OK
-    case ClassNotFoundException
-    case IllegalAccessException
-    case MalformedURLException
-    case IOException
-    case InvalidAction
-    case JsonException
-    case Error
+    case noResult = 0
+    case ok
+    case classNotFoundException
+    case illegalAccessException
+    case malformedURLException
+    case ioException
+    case invalidAction
+    case jsonException
+    case error
 }
 
 public class KingsroadPluginResult: NSObject {
@@ -41,39 +41,39 @@ public class KingsroadPluginResult: NSObject {
         super.init()
     }
 
-    public class func errorWithMessage(msg: String) -> KingsroadPluginResult {
-        return KingsroadPluginResult(status: .Error, message: msg)
+    public class func errorWithMessage(_ msg: String) -> KingsroadPluginResult {
+        return KingsroadPluginResult(status: .error, message: msg as NSString)
     }
 
     public class func dataFormatError() -> KingsroadPluginResult {
         return errorWithMessage("数据格式有误")
     }
 
-    func constructResultJSWithCallbackID(callbackID: String) -> String {
+    func constructResultJSWithCallbackID(_ callbackID: String) -> String {
 
         var resultInfoDic: [String: AnyObject] = [
-            "status": "\(status.rawValue)",
-            "keepCallback": keepCallback
+            "status": "\(status.rawValue)" as NSString,
+            "keepCallback": NSNumber(value: keepCallback)
         ]
 
         resultInfoDic["message"] = message
 
         // 默认是 Json 格式错误
         let resultParamStr: String
-        if let jsonData = try? NSJSONSerialization.dataWithJSONObject(resultInfoDic, options: NSJSONWritingOptions()),
-            paramStr = String(data: jsonData, encoding: NSUTF8StringEncoding)
+        if let jsonData = try? JSONSerialization.data(withJSONObject: resultInfoDic, options: JSONSerialization.WritingOptions()),
+            let paramStr = String(data: jsonData, encoding: String.Encoding.utf8)
         {
             resultParamStr = paramStr
         } else {
             // 如果 Json 序列化错误，则将状态置为这个
-            status = .JsonException
+            status = .jsonException
             resultParamStr = "{\"status\":\"7\",\"message\":\"JsonException\",\"keepCallback\":false}"
         }
 
         let resultJS: String
 
         switch status {
-        case .OK:
+        case .ok:
             resultJS = "cordova.callbackSuccess('\(callbackID)', \(resultParamStr));"
         default:
             resultJS = "cordova.callbackError('\(callbackID)', \(resultParamStr));"

@@ -16,7 +16,7 @@ public class KingsroadPlugin: NSObject {
         super.init()
     }
 
-    public func judgeCommandMethodArgumentCount(command: KingsroadCommand, rightCount count: UInt) -> KingsroadPluginResult? {
+    public func judgeCommandMethodArgumentCount(_ command: KingsroadCommand, rightCount count: UInt) -> KingsroadPluginResult? {
         let result: KingsroadPluginResult?
         if command.methodArguments.count != Int(count) {
             result = KingsroadPluginResult.errorWithMessage("argument count is wrong.")

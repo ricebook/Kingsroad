@@ -21,12 +21,12 @@ public class KingsroadPluginManager {
      - parameter name:       Name of plugin that is used in js
      - parameter pluginType: The Class of plugin
      */
-    public func registerPluginTypeWithName(name: String, pluginType: KingsroadPlugin.Type) {
+    public func registerPluginTypeWithName(_ name: String, pluginType: KingsroadPlugin.Type) {
         _pluginTypeMap[name] = pluginType
     }
 
 
-    public func registerPlugins(plugins: [String: KingsroadPlugin.Type]) {
+    public func registerPlugins(_ plugins: [String: KingsroadPlugin.Type]) {
         for (key, value) in plugins {
             _pluginTypeMap[key] = value
         }

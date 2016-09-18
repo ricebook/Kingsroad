@@ -9,7 +9,7 @@
 import UIKit
 
 @objc public protocol KingsroadCommandDelegate {
-    func sendPluginResult(result: KingsroadPluginResult, callbackID: String)
+    func sendPluginResult(_ result: KingsroadPluginResult, callbackID: String)
 }
 
 public class KingsroadCommand: NSObject {
