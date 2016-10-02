@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class KingsroadPlugin: NSObject {
+open class KingsroadPlugin: NSObject {
 
     weak public var commandDelgete: KingsroadCommandDelegate? = nil
 
