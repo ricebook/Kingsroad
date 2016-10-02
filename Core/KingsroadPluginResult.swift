@@ -22,18 +22,18 @@ public enum KingsroadCommandStatus: Int {
 
 public class KingsroadPluginResult: NSObject {
     private(set) var status: KingsroadCommandStatus
-    var message: AnyObject?
+    var message: Any?
     let keepCallback: Bool
 
     convenience public init(status: KingsroadCommandStatus) {
         self.init(status: status, message: nil, keepCallback: false)
     }
 
-    convenience public init(status: KingsroadCommandStatus, message: AnyObject) {
+    convenience public init(status: KingsroadCommandStatus, message: Any) {
         self.init(status: status, message: message, keepCallback: false)
     }
 
-    public init(status: KingsroadCommandStatus, message: AnyObject?, keepCallback: Bool) {
+    public init(status: KingsroadCommandStatus, message: Any?, keepCallback: Bool) {
         self.status = status
         self.message = message
         self.keepCallback = keepCallback
@@ -42,7 +42,7 @@ public class KingsroadPluginResult: NSObject {
     }
 
     public class func errorWithMessage(_ msg: String) -> KingsroadPluginResult {
-        return KingsroadPluginResult(status: .error, message: msg as NSString)
+        return KingsroadPluginResult(status: .error, message: msg)
     }
 
     public class func dataFormatError() -> KingsroadPluginResult {
@@ -51,7 +51,7 @@ public class KingsroadPluginResult: NSObject {
 
     func constructResultJSWithCallbackID(_ callbackID: String) -> String {
 
-        var resultInfoDic: [String: AnyObject] = [
+        var resultInfoDic: [String: Any] = [
             "status": "\(status.rawValue)" as NSString,
             "keepCallback": NSNumber(value: keepCallback)
         ]
